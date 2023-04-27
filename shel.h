@@ -30,16 +30,16 @@ extern char **environ;
  * @_environ: environment variable
  * @pid: process ID of the shell
  */
-typedef struct data
+typedef struct info
 {
-	char **av;
-	char *input;
+	char **va;
+	char *in;
 	char **args;
 	int status;
-	int counter;
-	char **_environ;
+	int count;
+	char **_env;
 	char *pid;
-} data_shell;
+} info2;
 
 /**
  * struct sep_list_s - single linked list
@@ -49,7 +49,7 @@ typedef struct data
  */
 typedef struct sep_list_s
 {
-	char separator;
+	char sep;
 	struct sep_list_s *next;
 } sep_list;
 
@@ -75,9 +75,9 @@ typedef struct line_list_s
  */
 typedef struct r_var_list
 {
-	int len_var;
-	char *val;
-	int len_val;
+	int lenvar;
+	char *value;
+	int lenval;
 	struct r_var_list *next;
 } r_var;
 
@@ -88,7 +88,7 @@ typedef struct r_var_list
  */
 typedef struct builtin_s
 {
-	char *name;
+	char *nam;
 	int (*f)(data_shell *datash);
 } builtin_t;
 
@@ -125,109 +125,109 @@ int _isdigit(const char *s);
 void rev_string(char *s);
 
 /* check_syntax_error.c */
-int repeated_char(char *input, int i);
-int error_sep_op(char *input, int i, char last);
-int first_char(char *input, int *i);
-void print_syntax_error(data_shell *datash, char *input, int i, int bool);
-int check_syntax_error(data_shell *datash, char *input);
+int repchar(char *inp, int x);
+int error_sep(char *inp, int x, char end);
+int start_char(char *inp, int *x);
+void print_synt_err(info2 *info3, char *inp, int x, int bool);
+int check_s_error(info2 *info3, char *inp);
 
 /* shell_loop.c */
-char *without_comment(char *in);
-void shell_loop(data_shell *datash);
+char *witho_comm(char *ni);
+void s_loop(info2 *info3);
 
 /* read_line.c */
-char *read_line(int *i_eof);
+char *readline1(int *x_eof);
 
 /* split.c */
-char *swap_char(char *input, int bool);
-void add_nodes(sep_list **head_s, line_list **head_l, char *input);
-void go_next(sep_list **list_s, line_list **list_l, data_shell *datash);
-int split_commands(data_shell *datash, char *input);
-char **split_line(char *input);
+char *swpch(char *inp, int bool);
+void add_node1(sep_list **head_s, line_list **head_l, char *inp);
+void go_next(sep_list **list_s, line_list **list_l, info2 *info3);
+int spltcmd(info2 *info3, char *inp);
+char **spltlne(char *inp);
 
 /* rep_var.c */
-void check_env(r_var **h, char *in, data_shell *data);
-int check_vars(r_var **h, char *in, char *st, data_shell *data);
-char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
-char *rep_var(char *input, data_shell *datash);
+void check_environment(r_var **h, char *in, info2 *info3);
+int checkvars(r_var **h, char *n, char *s, info2 *info3);
+char *rep__input(r_var **head, char *inp, char *nwinp, int lenn);
+char *replace_var(char *inp, info2 *info3);
 
 /* get_line.c */
-void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
-ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
+void get_line3(char **lineptr, size_t *m, char *buff, size_t i);
+ssize_t get_line(char **lineptr, size_t *m, FILE *stream);
 
 /* exec_line */
-int exec_line(data_shell *datash);
+int executeline(info2 *info3);
 
 /* cmd_exec.c */
-int is_cdir(char *path, int *i);
-char *_which(char *cmd, char **_environ);
-int is_executable(data_shell *datash);
-int check_error_cmd(char *dir, data_shell *datash);
-int cmd_exec(data_shell *datash);
+int isdir(char *paTh, int *j);
+char *_wh(char *cmd, char **_environ);
+int is_executable(info2 *info3);
+int checkerrcmd(char *dir, info2 *info3);
+int cmexec(info2 *info3);
 
 /* env1.c */
-char *_getenv(const char *name, char **_environ);
-int _env(data_shell *datash);
+char *getenv1(const char *nam, char **_environ);
+int env1(info3 *info3);
 
 /* env2.c */
-char *copy_info(char *name, char *value);
-void set_env(char *name, char *value, data_shell *datash);
-int _setenv(data_shell *datash);
-int _unsetenv(data_shell *datash);
+char *copyinff(char *nam, char *vlue);
+void setenvv(char *nam, char *vlue, info2 *info3);
+int setenv1(data_shell *datash);
+int unsetenvv2(info2 *info3);
 
 /* cd.c */
-void cd_dot(data_shell *datash);
-void cd_to(data_shell *datash);
-void cd_previous(data_shell *datash);
-void cd_to_home(data_shell *datash);
+void cddott(info2 *info3);
+void cdto2(info2 *info3);
+void cdprev(info2 *info3);
+void cdhome(info2 *info3);
 
 /* cd_shell.c */
-int cd_shell(data_shell *datash);
+int cdshel(info2 *info3);
 
 /* get_builtin */
-int (*get_builtin(char *cmd))(data_shell *datash);
+int (*get_builtin(char *cmd))(info2 *info3);
 
 /* _exit.c */
-int exit_shell(data_shell *datash);
+int exit_shell(info2 *info3);
 
 /* aux_stdlib.c */
-int get_len(int n);
-char *aux_itoa(int n);
-int _atoi(char *s);
+int getlength(int m);
+char *a_ito(int m);
+int _atoiii(char *r);
 
 /* aux_error1.c */
-char *strcat_cd(data_shell *, char *, char *, char *);
-char *error_get_cd(data_shell *datash);
-char *error_not_found(data_shell *datash);
-char *error_exit_shell(data_shell *datash);
+char *strctCd(info2 *, char *, char *, char *);
+char *err_cd(info2 *info3);
+char *err_unfound(data_shell *datash);
+char *err_exitshell(info2 *info3);
 
 /* aux_error2.c */
-char *error_get_alias(char **args);
-char *error_env(data_shell *datash);
-char *error_syntax(char **args);
-char *error_permission(char **args);
-char *error_path_126(data_shell *datash);
+char *er_alias(char **args);
+char *er2_envir(info2 *info3);
+char *er_synt(char **args);
+char *er2_perm(char **args);
+char *error_path(info2 *info3);
 
 
 /* get_error.c */
-int get_error(data_shell *datash, int eval);
+int get1_err(info2 *info3, int val);
 
 /* get_sigint.c */
-void get_sigint(int sig);
+void ge2_sigint(int g);
 
 /* aux_help.c */
-void aux_help_env(void);
-void aux_help_setenv(void);
-void aux_help_unsetenv(void);
-void aux_help_general(void);
-void aux_help_exit(void);
+void help1_envv(void);
+void help2_setenvv(void);
+void help2_unsetenvv(void);
+void help2_gen(void);
+void help_exitt(void);
 
 /* aux_help2.c */
-void aux_help(void);
-void aux_help_alias(void);
-void aux_help_cd(void);
+void _help(void);
+void _help1_alias(void);
+void _help_cdd(void);
 
 /* get_help.c */
-int get_help(data_shell *datash);
+int gett_helpp(info2 *info3);
 
 #endif
