@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * copy_info - copies info to create

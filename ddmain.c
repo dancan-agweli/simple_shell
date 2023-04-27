@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * free_data - frees data structure

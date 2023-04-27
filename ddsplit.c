@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * swap_char - swaps | and & for non-printed chars

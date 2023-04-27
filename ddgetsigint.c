@@ -1,5 +1,4 @@
-#include "main.h"
-
+#include "shel.h"
 /**
  * get_sigint - Handle the crtl + c call in prompt
  * @sig: Signal handler

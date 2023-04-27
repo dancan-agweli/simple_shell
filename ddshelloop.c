@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * without_comment - deletes comments from the input
