@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * cd_shell - changes current directory
