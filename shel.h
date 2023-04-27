@@ -1,5 +1,5 @@
-#ifndef  _MAIN_H_
-#define  _MAIN_H_
+#ifndef  _SHEL_H_
+#define  _SHEL_H_
 
 #include <stdio.h>
 #include <unistd.h>
@@ -92,36 +92,36 @@ typedef struct builtin_s
 	int (*f)(data_shell *datash);
 } builtin_t;
 
-/* aux_lists.c */
+/* ddlists.c */
 sep_list *add_sep_node_end(sep_list **head, char sep);
 void free_sep_list(sep_list **head);
 line_list *add_line_node_end(line_list **head, char *line);
 void free_line_list(line_list **head);
 
-/* aux_lists2.c */
+/* ddlists2.c */
 r_var *add_rvar_node(r_var **head, int lvar, char *var, int lval);
 void free_rvar_list(r_var **head);
 
-/* aux_str functions */
+/* ddstr functions */
 char *_strcat(char *dest, const char *src);
 char *_strcpy(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
 int _strspn(char *s, char *accept);
 
-/* aux_mem.c */
+/* ddmem.c */
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
 
-/* aux_str2.c */
+/* ddstr2.c */
 char *_strdup(const char *s);
 int _strlen(const char *s);
 int cmp_chars(char str[], const char *delim);
 char *_strtok(char str[], const char *delim);
 int _isdigit(const char *s);
 
-/* aux_str3.c */
+/* ddstr3.c */
 void rev_string(char *s);
 
 /* check_syntax_error.c */

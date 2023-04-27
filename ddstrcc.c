@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * _strcat - concatenate two strings

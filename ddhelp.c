@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shel.h"
 
 /**
  * aux_help_env - Help information for the builtin env
