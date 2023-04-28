@@ -156,7 +156,7 @@ int checkerrcmd(char *dir, info2 *info3)
  * @info3: relevant (args and input)
  * Return: always 1 on success.
  */
-int cmdexec(info2 *info3)
+int cmexec(info2 *info3)
 {
 	pid_t pd;
 	pid_t wpd;
