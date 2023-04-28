@@ -25,7 +25,7 @@ void dst(info2 *info3, char **aav)
 	unsigned int ka;
 
 	info3->aav = aav;
-	info3->in = NULL;
+	info3->inp = NULL;
 	info3->args = NULL;
 	info3->status = 0;
 	info3->count = 1;

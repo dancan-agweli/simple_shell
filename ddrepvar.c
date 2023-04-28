@@ -46,7 +46,6 @@ void check_environment(r_var **h, char *n, info2 *info3)
  */
 int checkvars(r_var **h, char *n, char *s, info2 *info3)
 {
-	int i, lst, lpd;
 	int ka, f, d;
 
 	f = _strlen(s);
@@ -58,7 +57,7 @@ int checkvars(r_var **h, char *n, char *s, info2 *info3)
 			if (n[ka + 1] == '?')
 				add_rvar_node(h, 2, s, f), ka++;
 			else if (n[ka + 1] == '$')
-				add_rvar_node(h, 2, info3->pid, f), ka++;
+				add_rvar_node(h, 2, info3->pid, d), ka++;
 			else if (n[ka + 1] == '\n')
 				add_rvar_node(h, 0, NULL, 0);
 			else if (n[ka + 1] == '\0')
