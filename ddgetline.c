@@ -48,7 +48,7 @@ ssize_t get_line(char **lptr, size_t *m, FILE *stream)
 	char *bfr;
 	char d = 'z';
 
-	if (ka == 0)
+	if (x == 0)
 		fflush(stream);
 	else
 		return (-1);

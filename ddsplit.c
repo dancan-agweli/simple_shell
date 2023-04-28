@@ -156,8 +156,8 @@ char **spltlne(char *inp)
 	char *d;
 
 	length = TOK_BUFSIZE;
-	d = malloc(sizeof(char *) * (length));
-	if (ds == NULL)
+	ds = malloc(sizeof(char *) * (length));
+	if (!ds)
 	{
 		write(STDERR_FILENO, ": allocation error\n", 18);
 		exit(EXIT_FAILURE);
