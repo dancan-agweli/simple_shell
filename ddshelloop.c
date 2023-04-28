@@ -1,77 +1,75 @@
 #include "shel.h"
 
 /**
- * without_comment - deletes comments from the input
- *
- * @in: input string
- * Return: input without comments
+ * witho_comm - erace the comment
+ * @ni: insertionstring
+ * Return: comment of insert.
  */
-char *without_comment(char *in)
+char *witho_comm(char *ni)
 {
-	int i, up_to;
+	int x, y;
 
-	up_to = 0;
-	for (i = 0; in[i]; i++)
+	y = 0;
+	for (x = 0; ni[x]; x++)
 	{
-		if (in[i] == '#')
+		if (ni[x] == '#')
 		{
-			if (i == 0)
+			if (x == 0)
 			{
-				free(in);
+				free(ni);
 				return (NULL);
 			}
 
-			if (in[i - 1] == ' ' || in[i - 1] == '\t' || in[i - 1] == ';')
-				up_to = i;
+			if (ni[x - 1] == ' ' || ni[x - 1] == '\t' || ni[x - 1] == ';')
+				y = x;
 		}
 	}
 
-	if (up_to != 0)
+	if (y != 0)
 	{
-		in = _realloc(in, i, up_to + 1);
-		in[up_to] = '\0';
+		ni = _reallocc(ni, x, y + 1);
+		ni[y] = '\0';
 	}
 
-	return (in);
+	return (ni);
 }
 
 /**
- * shell_loop - Loop of shell
- * @datash: data relevant (av, input, args)
- *
- * Return: no return.
+ * s_loop - iteration of shell
+ * @info3: ...
+ * Return: nothing.
  */
-void shell_loop(data_shell *datash)
+void s_loop(info2 *info3)
 {
-	int loop, i_eof;
-	char *input;
+	int iter, x_eof;
+	char *inp;
 
-	loop = 1;
-	while (loop == 1)
+	iter = 1;
+	while (iter == 1)
 	{
 		write(STDIN_FILENO, "^-^ ", 4);
-		input = read_line(&i_eof);
-		if (i_eof != -1)
+		inp = readline1(&x_eof);
+		if (x_eof != -1)
 		{
-			input = without_comment(input);
-			if (input == NULL)
+			inp = witho_comm(inp);
+			if (!inp)
 				continue;
 
-			if (check_syntax_error(datash, input) == 1)
+			if (check_s_error(info3, inp) == 1)
 			{
-				datash->status = 2;
-				free(input);
+				info3->status = 2;
+				free(inp);
 				continue;
 			}
-			input = rep_var(input, datash);
-			loop = split_commands(datash, input);
-			datash->counter += 1;
-			free(input);
+			inp = replace_var(inp, info3);
+			iter = spltcmd(info3, inp);
+			info3->count += 1;
+			free(inp);
 		}
 		else
 		{
-			loop = 0;
-			free(input);
+			iter = 0;
+			free(inp);
 		}
 	}
 }

@@ -1,11 +1,12 @@
 #include "shel.h"
 /**
- * get_sigint - Handle the crtl + c call in prompt
- * @sig: Signal handler
+ * ge2_sigint - writes  crtl + c in shell
+ *
+ * @g: sign of handling
  */
-void get_sigint(int sig)
+void ge2_sigint(int g)
 {
-	(void)sig;
+	(void)g;
 	write(STDOUT_FILENO, "\n^-^ ", 5);
 }
 

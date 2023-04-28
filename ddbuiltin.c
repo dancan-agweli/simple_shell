@@ -1,29 +1,30 @@
 #include "shel.h"
 
 /**
- * get_builtin - builtin that pais the command in the arg
- * @cmd: command
- * Return: function pointer of the builtin command
+ * get_builtin - builtin for  command
+ *
+ * @cmd: the shell command
+ * Return: always sucess
  */
-int (*get_builtin(char *cmd))(data_shell *)
+int (*get_builtin(char *cmd))(info2 *)
 {
 	builtin_t builtin[] = {
-		{ "env", _env },
+		{ "env", env1 },
 		{ "exit", exit_shell },
-		{ "setenv", _setenv },
-		{ "unsetenv", _unsetenv },
-		{ "cd", cd_shell },
-		{ "help", get_help },
+		{ "setenv", setenv1 },
+		{ "unsetenv", unsetenvv2 },
+		{ "cd", cdshel },
+		{ "help", gett_helpp },
 		{ NULL, NULL }
 	};
-	int i;
+	int x;
 
-	for (i = 0; builtin[i].name; i++)
+	for (x = 0; builtin[x].name; x++)
 	{
-		if (_strcmp(builtin[i].name, cmd) == 0)
+		if (_strcmp(builtin[x].name, cmd) == 0)
 			break;
 	}
 
-	return (builtin[i].f);
+	return (builtin[x].f);
 }
 

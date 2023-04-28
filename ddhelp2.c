@@ -1,40 +1,41 @@
 #include "shel.h"
 
 /**
- * aux_help - Help information for the builtin help.
- * Return: no return
+ * _help - Gathres information for the builtin help.
+ * Return: nothing
  */
-void aux_help(void)
+void _help(void)
 {
-	char *help = "help: help [-dms] [pattern ...]\n";
+	char *aid = "help: help [-dms] [pattern ...]\n";
 
-	write(STDOUT_FILENO, help, _strlen(help));
-	help = "\tDisplay information about builtin commands.\n ";
-	write(STDOUT_FILENO, help, _strlen(help));
-	help = "Displays brief summaries of builtin commands.\n";
-	write(STDOUT_FILENO, help, _strlen(help));
+	write(STDOUT_FILENO, aid, _strlen(aid));
+	aid = "\tprints  builtin commands.\n ";
+	write(STDOUT_FILENO, aid, _strlen(aid));
+	aid = "printssummaries of builtin commands.\n";
+	write(STDOUT_FILENO, aid, _strlen(aid));
 }
 /**
- * aux_help_alias - Help information for the builtin alias.
- * Return: no return
+ * _help1_alias - the builtin alias.
+ * Return: nothing
  */
-void aux_help_alias(void)
+void _help1_alias(void)
 {
-	char *help = "alias: alias [-p] [name[=value]...]\n";
+	char *aid = "alias: alias [-p] [name[=value]...]\n";
 
-	write(STDOUT_FILENO, help, _strlen(help));
-	help = "\tDefine or display aliases.\n ";
-	write(STDOUT_FILENO, help, _strlen(help));
+	write(STDOUT_FILENO, aid, _strlen(aid));
+	aid = "\tdisplay aliases.\n ";
+	write(STDOUT_FILENO, aid, _strlen(aid));
 }
 /**
- * aux_help_cd - Help information for the builtin alias.
- * Return: no return
+ * _help_cdd - the information for the builtin directory.
+ *
+ * Return: nothing
  */
-void aux_help_cd(void)
+void _help_cdd(void)
 {
-	char *help = "cd: cd [-L|[-P [-e]] [-@]] [dir]\n";
+	char *aid = "cd: cd [-L|[-P [-e]] [-@]] [dir]\n";
 
-	write(STDOUT_FILENO, help, _strlen(help));
-	help = "\tChange the shell working directory.\n ";
-	write(STDOUT_FILENO, help, _strlen(help));
+	write(STDOUT_FILENO, aid, _strlen(aid));
+	aid = "\tshell working directory.\n ";
+	write(STDOUT_FILENO, aid, _strlen(aid));
 }

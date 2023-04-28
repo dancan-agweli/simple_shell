@@ -1,61 +1,60 @@
 #include "shel.h"
 
 /**
- * add_rvar_node - adds a variable at the end
- * of a r_var list.
- * @head: head of the linked list.
- * @lvar: length of the variable.
- * @val: value of the variable.
- * @lval: length of the value.
- * Return: address of the head.
+ * add_rvar_node - appends a variable at the latter.
+ * @headd: core of singly linked
+ * @lenvar: length.
+ * @valuee: variable valuee.
+ * @lenval: length in the data typelue.
+ * Return: sucess on answer.
  */
-r_var *add_rvar_node(r_var **head, int lvar, char *val, int lval)
+r_var *add_rvar_node(r_var **headd, int lenvar, char *valuee, int lenval)
 {
-	r_var *new, *temp;
+	r_var *fresh, *swapp;
 
-	new = malloc(sizeof(r_var));
-	if (new == NULL)
+	fresh = malloc(sizeof(r_var));
+	if (!fresh)
 		return (NULL);
 
-	new->len_var = lvar;
-	new->val = val;
-	new->len_val = lval;
+	fresh->lenvar = lenvar;
+	fresh->valuee = valuee;
+	fresh->lenval = lenval;
 
-	new->next = NULL;
-	temp = *head;
+	fresh->next = NULL;
+	swapp = *headd;
 
-	if (temp == NULL)
+	if (swapp == NULL)
 	{
-		*head = new;
+		*headd = fresh;
 	}
 	else
 	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		while (swapp->next != NULL)
+			swapp = swapp->next;
+		swapp->next = fresh;
 	}
 
-	return (*head);
+	return (*headd);
 }
 
 /**
- * free_rvar_list - frees a r_var list
- * @head: head of the linked list.
+ * free_rvar_list - realease  list
+ * @headd: ...
  * Return: no return.
  */
-void free_rvar_list(r_var **head)
+void free_rvar_list(r_var **headd)
 {
-	r_var *temp;
-	r_var *curr;
+	r_var *sw;
+	r_var *rc;
 
-	if (head != NULL)
+	if (headd != NULL)
 	{
-		curr = *head;
-		while ((temp = curr) != NULL)
+		rc = *headd;
+		while ((sw = rc) != NULL)
 		{
-			curr = curr->next;
-			free(temp);
+			rc = rc->next;
+			free(sw);
 		}
-		*head = NULL;
+		*headd = NULL;
 	}
 }

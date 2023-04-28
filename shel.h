@@ -1,5 +1,5 @@
-#ifndef  _SHEL_H_
-#define  _SHEL_H_
+#ifndef _SHEL_H_
+#define _SHEL_H_
 
 #include <stdio.h>
 #include <unistd.h>
@@ -13,37 +13,38 @@
 #include <limits.h>
 
 #define BUFSIZE 1024
+/* tokenizing */
 #define TOK_BUFSIZE 128
-#define TOK_DELIM " \t\r\n\a"
+#define TOK_DELM " \t\r\n\a"
 
-/* Points to an array of pointers to strings called the "environment" */
+/* Points to an array of pointers to environment */
 extern char **environ;
 
 
 /**
- * struct data - struct that contains all relevant data on runtime
- * @av: argument vector
- * @input: command line written by the user
+ * struct info - struct that contains all relevant data on runtime
+ * @aav: argument vector
+ * @inp: command line written by the user
  * @args: tokens of the command line
  * @status: last status of the shell
- * @counter: lines counter
- * @_environ: environment variable
+ * @count: linesof the counter
+ * @_environn: environment variable
  * @pid: process ID of the shell
  */
 typedef struct info
 {
-	char **va;
-	char *in;
+	char **aav;
+	char *inp;
 	char **args;
 	int status;
 	int count;
-	char **_env;
+	char **_environn;
 	char *pid;
 } info2;
 
 /**
  * struct sep_list_s - single linked list
- * @separator: ; | &
+ * @sep: ; | &
  * @next: next node
  * Description: single linked list to store separators
  */
@@ -55,8 +56,8 @@ typedef struct sep_list_s
 
 /**
  * struct line_list_s - single linked list
- * @line: command line
- * @next: next node
+ * @line: commands of the line
+ * @next: next node of the program
  * Description: single linked list to store command lines
  */
 typedef struct line_list_s
@@ -66,63 +67,63 @@ typedef struct line_list_s
 } line_list;
 
 /**
- * struct r_var_list - single linked list
- * @len_var: length of the variable
- * @val: value of the variable
- * @len_val: length of the value
- * @next: next node
- * Description: single linked list to store variables
+ * struct r_var_list - single linked list in program
+ * @lenvar: length of the variable list
+ * @valuee: value of the variable list
+ * @lenval: length of the value list
+ * @next: next node of program
+ * Description: single linked list to stored variables.
  */
 typedef struct r_var_list
 {
 	int lenvar;
-	char *value;
+	char *valuee;
 	int lenval;
 	struct r_var_list *next;
 } r_var;
 
 /**
- * struct builtin_s - Builtin struct for command args.
- * @name: The name of the command builtin i.e cd, exit, env
+ * struct builtin_s - Builtin struct of cmd args.
+ * @name: The namee of the command builtin i.e cd, exit, env
  * @f: data type pointer function.
  */
 typedef struct builtin_s
 {
-	char *nam;
-	int (*f)(data_shell *datash);
+	char *name;
+	int (*f)(info2 *info3);
 } builtin_t;
 
 /* ddlists.c */
-sep_list *add_sep_node_end(sep_list **head, char sep);
-void free_sep_list(sep_list **head);
-line_list *add_line_node_end(line_list **head, char *line);
-void free_line_list(line_list **head);
+sep_list *add_sep_node_end(sep_list **headd, char sep);
+void free_sep_list(sep_list **headd);
+line_list *add_line_node_end(line_list **headd, char *line);
+void free_line_list(line_list **headd);
 
 /* ddlists2.c */
-r_var *add_rvar_node(r_var **head, int lvar, char *var, int lval);
-void free_rvar_list(r_var **head);
+r_var *add_rvar_node(r_var **headd, int lenvar, char *valuee, int lenval);
+void free_rvar_list(r_var **headd);
 
 /* ddstr functions */
-char *_strcat(char *dest, const char *src);
-char *_strcpy(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-char *_strchr(char *s, char c);
-int _strspn(char *s, char *accept);
+char *_strcat(char *dt, const char *sc);
+char *_strcpy(char *dt, char *sc);
+int _strcmp(char *s11, char *s22);
+char *_strchr(char *ss, char cc);
+int _strspn(char *ss, char *acceps);
 
 /* ddmem.c */
-void _memcpy(void *newptr, const void *ptr, unsigned int size);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
+void _memcpy(void *nptr, const void *pr, unsigned int sz);
+void *_reallocc(void *pr, unsigned int oldsz, unsigned int newsz);
+char **_reallocc2(char **pr, unsigned int oldsz, unsigned int newsz);
 
 /* ddstr2.c */
-char *_strdup(const char *s);
-int _strlen(const char *s);
-int cmp_chars(char str[], const char *delim);
-char *_strtok(char str[], const char *delim);
-int _isdigit(const char *s);
+char *_strdup(const char *ss);
+int _strlen(const char *ss);
+int cmp_charss(char strs[], const char *delm);
+char *_strtoks(char strs[], const char *delm);
+int _isdigits(const char *ss);
 
 /* ddstr3.c */
-void rev_string(char *s);
+void rev_strings(char *ss);
 
 /* check_syntax_error.c */
 int repchar(char *inp, int x);
@@ -140,68 +141,68 @@ char *readline1(int *x_eof);
 
 /* split.c */
 char *swpch(char *inp, int bool);
-void add_node1(sep_list **head_s, line_list **head_l, char *inp);
-void go_next(sep_list **list_s, line_list **list_l, info2 *info3);
+void add_node1(sep_list **head_ss, line_list **head_ll, char *inp);
+void go_next(sep_list **list_ss, line_list **list_ll, info2 *info3);
 int spltcmd(info2 *info3, char *inp);
 char **spltlne(char *inp);
 
 /* rep_var.c */
-void check_environment(r_var **h, char *in, info2 *info3);
+void check_environment(r_var **h, char *n, info2 *info3);
 int checkvars(r_var **h, char *n, char *s, info2 *info3);
-char *rep__input(r_var **head, char *inp, char *nwinp, int lenn);
+char *rep__input(r_var **headd, char *inp, char *nwinp, int lenn);
 char *replace_var(char *inp, info2 *info3);
 
-/* get_line.c */
-void get_line3(char **lineptr, size_t *m, char *buff, size_t i);
-ssize_t get_line(char **lineptr, size_t *m, FILE *stream);
+/* getline.c */
+void get_line3(char **lptr, size_t *m, char *buff, size_t i);
+ssize_t get_line(char **lptr, size_t *m, FILE *stream);
 
-/* exec_line */
-int executeline(info2 *info3);
+/* ddexecline */
+int executeline1(info2 *info3);
 
-/* cmd_exec.c */
-int isdir(char *paTh, int *j);
-char *_wh(char *cmd, char **_environ);
+/* ddcmdexec.c */
+int isdir(char *path, int *j);
+char *_wh(char *cmd, char **_environn);
 int is_executable(info2 *info3);
 int checkerrcmd(char *dir, info2 *info3);
 int cmexec(info2 *info3);
 
-/* env1.c */
-char *getenv1(const char *nam, char **_environ);
-int env1(info3 *info3);
+/* ddenv1.c */
+char *getenv1(const char *namee, char **_environn);
+int env1(info2 *info3);
 
-/* env2.c */
-char *copyinff(char *nam, char *vlue);
-void setenvv(char *nam, char *vlue, info2 *info3);
-int setenv1(data_shell *datash);
+/* ddenv2.c */
+char *copyinff(char *namee, char *vlue);
+void setenvv(char *namee, char *vlue, info2 *info3);
+int setenv1(info2 *info3);
 int unsetenvv2(info2 *info3);
 
-/* cd.c */
+/* ddcd.c */
 void cddott(info2 *info3);
 void cdto2(info2 *info3);
 void cdprev(info2 *info3);
 void cdhome(info2 *info3);
 
-/* cd_shell.c */
+/* ddcdshell.c */
 int cdshel(info2 *info3);
 
-/* get_builtin */
-int (*get_builtin(char *cmd))(info2 *info3);
+/*ddgetbuiltin */
+int (*get_builtin(char *cmd))(info2 *);
 
-/* _exit.c */
+/* dd_exit.c */
 int exit_shell(info2 *info3);
 
-/* aux_stdlib.c */
-int getlength(int m);
+/* dd_stdlib.c */
+int get_length(int m);
 char *a_ito(int m);
 int _atoiii(char *r);
 
-/* aux_error1.c */
+/* dd_error1.c */
 char *strctCd(info2 *, char *, char *, char *);
 char *err_cd(info2 *info3);
-char *err_unfound(data_shell *datash);
+char *err_unfound(info2 *info3);
 char *err_exitshell(info2 *info3);
 
-/* aux_error2.c */
+/* dd_error2.c */
 char *er_alias(char **args);
 char *er2_envir(info2 *info3);
 char *er_synt(char **args);
@@ -209,25 +210,25 @@ char *er2_perm(char **args);
 char *error_path(info2 *info3);
 
 
-/* get_error.c */
+/* ddget_error.c */
 int get1_err(info2 *info3, int val);
 
-/* get_sigint.c */
+/*dd getsigint.c */
 void ge2_sigint(int g);
 
-/* aux_help.c */
+/* ddhelp.c */
 void help1_envv(void);
 void help2_setenvv(void);
 void help2_unsetenvv(void);
-void help2_gen(void);
+void help2_general(void);
 void help_exitt(void);
 
-/* aux_help2.c */
+/* ddhelp2.c */
 void _help(void);
 void _help1_alias(void);
 void _help_cdd(void);
 
-/* get_help.c */
+/* ddgethelp.c */
 int gett_helpp(info2 *info3);
 
 #endif

@@ -1,44 +1,43 @@
 #include "shel.h"
 
 /**
- * cd_shell - changes current directory
- *
- * @datash: data relevant
- * Return: 1 on success
+ * cdshel - finds the current directory
+ * @info3: pointed to data
+ * Return: always give 1 on success
  */
-int cd_shell(data_shell *datash)
+int cdshel(info2 *info3)
 {
-	char *dir;
-	int ishome, ishome2, isddash;
+	char *rd;
+	int h, x, y;
 
-	dir = datash->args[1];
+	rd = info3->args[1];
 
-	if (dir != NULL)
+	if (rd != NULL)
 	{
-		ishome = _strcmp("$HOME", dir);
-		ishome2 = _strcmp("~", dir);
-		isddash = _strcmp("--", dir);
+		h = _strcmp("$HOME", rd);
+		x = _strcmp("~", rd);
+		y = _strcmp("--", rd);
 	}
 
-	if (dir == NULL || !ishome || !ishome2 || !isddash)
+	if (!rd || !h || !x || !y)
 	{
-		cd_to_home(datash);
+		cdhome(info3);
 		return (1);
 	}
 
-	if (_strcmp("-", dir) == 0)
+	if (_strcmp("-", rd) == 0)
 	{
-		cd_previous(datash);
+		cdprev(info3);
 		return (1);
 	}
 
-	if (_strcmp(".", dir) == 0 || _strcmp("..", dir) == 0)
+	if (_strcmp(".", rd) == 0 || _strcmp("..", rd) == 0)
 	{
-		cd_dot(datash);
+		cddott(info3);
 		return (1);
 	}
 
-	cd_to(datash);
+	cdto2(info3);
 
 	return (1);
 }

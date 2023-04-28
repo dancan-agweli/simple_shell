@@ -1,89 +1,86 @@
 #include "shel.h"
 
 /**
- * repeated_char - counts the repetitions of a char
- *
- * @input: input string
- * @i: index
- * Return: repetitions
+ * repchar - writes repetatives
+ * @inp: the string of inputs
+ * @x: ...
+ * Return: iteretative
  */
-int repeated_char(char *input, int i)
+int repchar(char *inp, int x)
 {
-	if (*(input - 1) == *input)
-		return (repeated_char(input - 1, i + 1));
+	if (*(inp - 1) == *inp)
+		return (repchar(inp - 1, x + 1));
 
-	return (i);
+	return (x);
 }
 
 /**
- * error_sep_op - finds syntax errors
- *
- * @input: input string
- * @i: index
- * @last: last char read
- * Return: index of error. 0 when there are no
- * errors
+ * error_sep - locates the syn errors
+ * @inp: the strings
+ * @x: ...
+ * @end: last char read
+ * Return: always return answer
  */
-int error_sep_op(char *input, int i, char last)
+int error_sep(char *inp, int x, char end)
 {
-	int count;
+	int sum;
 
-	count = 0;
-	if (*input == '\0')
+	sum = 0;
+	if (*inp == '\0')
 		return (0);
 
-	if (*input == ' ' || *input == '\t')
-		return (error_sep_op(input + 1, i + 1, last));
+	if (*inp == ' ' || *inp == '\t')
+		return (error_sep(inp + 1, x + 1, end));
 
-	if (*input == ';')
-		if (last == '|' || last == '&' || last == ';')
-			return (i);
+	if (*inp == ';')
+		if (end == '|' || end == '&' || end == ';')
+			return (x);
 
-	if (*input == '|')
+	if (*inp == '|')
 	{
-		if (last == ';' || last == '&')
-			return (i);
+		if (end == ';' || end == '&')
+			return (x);
 
-		if (last == '|')
+		if (end == '|')
 		{
-			count = repeated_char(input, 0);
-			if (count == 0 || count > 1)
-				return (i);
+			sum = repchar(inp, 0);
+			if (sum == 0 || sum > 1)
+				return (x);
 		}
 	}
 
-	if (*input == '&')
+	if (*inp == '&')
 	{
-		if (last == ';' || last == '|')
-			return (i);
+		if (end == ';' || end == '|')
+			return (x);
 
-		if (last == '&')
+		if (end == '&')
 		{
-			count = repeated_char(input, 0);
-			if (count == 0 || count > 1)
-				return (i);
+			sum = repchar(inp, 0);
+			if (sum == 0 || sum > 1)
+				return (x);
 		}
 	}
 
-	return (error_sep_op(input + 1, i + 1, *input));
+	return (error_sep(inp + 1, x + 1, *inp));
 }
 
 /**
- * first_char - finds index of the first char
- *
- * @input: input string
- * @i: index
- * Return: 1 if there is an error. 0 in other case.
+ * start_char - locates the index  char
+ * @inp: insertion of string
+ * @x: ...
+ * Return: always answer
  */
-int first_char(char *input, int *i)
+int start_char(char *inp, int *x)
+
 {
 
-	for (*i = 0; input[*i]; *i += 1)
+	for (*x = 0; inp[*x]; *x += 1)
 	{
-		if (input[*i] == ' ' || input[*i] == '\t')
+		if (inp[*x] == ' ' || inp[*x] == '\t')
 			continue;
 
-		if (input[*i] == ';' || input[*i] == '|' || input[*i] == '&')
+		if (inp[*x] == ';' || inp[*x] == '|' || inp[*x] == '&')
 			return (-1);
 
 		break;
@@ -93,83 +90,80 @@ int first_char(char *input, int *i)
 }
 
 /**
- * print_syntax_error - prints when a syntax error is found
- *
- * @datash: data structure
- * @input: input string
- * @i: index of the error
- * @bool: to control msg error
+ * print_synt_err - write  a syntax error
+ * @info3: the raw info structure
+ * @inp: insert of string
+ * @x: index of the error
+ * @bool: error controler
  * Return: no return
  */
-void print_syntax_error(data_shell *datash, char *input, int i, int bool)
+void print_synt_err(info2 *info3, char *inp, int x, int bool)
 {
-	char *msg, *msg2, *msg3, *error, *counter;
-	int length;
+	char *siri1, *siri2, *siri3, *makosa, *count;
+	int l;
 
-	if (input[i] == ';')
+	if (inp[x] == ';')
 	{
 		if (bool == 0)
-			msg = (input[i + 1] == ';' ? ";;" : ";");
+			siri1 = (inp[x + 1] == ';' ? ";;" : ";");
 		else
-			msg = (input[i - 1] == ';' ? ";;" : ";");
+			siri1 = (inp[x - 1] == ';' ? ";;" : ";");
 	}
 
-	if (input[i] == '|')
-		msg = (input[i + 1] == '|' ? "||" : "|");
+	if (inp[x] == '|')
+		siri1 = (inp[x + 1] == '|' ? "||" : "|");
 
-	if (input[i] == '&')
-		msg = (input[i + 1] == '&' ? "&&" : "&");
+	if (inp[x] == '&')
+		siri1 = (inp[x + 1] == '&' ? "&&" : "&");
 
-	msg2 = ": Syntax error: \"";
-	msg3 = "\" unexpected\n";
-	counter = aux_itoa(datash->counter);
-	length = _strlen(datash->av[0]) + _strlen(counter);
-	length += _strlen(msg) + _strlen(msg2) + _strlen(msg3) + 2;
+	siri2 = ": Syntax error: \"";
+	siri3 = "\" unexpected\n";
+	count = a_ito(info3->count);
+	l = _strlen(info3->aav[0]) + _strlen(count);
+	l += _strlen(siri1) + _strlen(siri2) + _strlen(siri3) + 2;
 
-	error = malloc(sizeof(char) * (length + 1));
-	if (error == 0)
+	makosa = malloc(sizeof(char) * (l + 1));
+	if (makosa == 0)
 	{
-		free(counter);
+		free(count);
 		return;
 	}
-	_strcpy(error, datash->av[0]);
-	_strcat(error, ": ");
-	_strcat(error, counter);
-	_strcat(error, msg2);
-	_strcat(error, msg);
-	_strcat(error, msg3);
-	_strcat(error, "\0");
+	_strcpy(makosa, info3->aav[0]);
+	_strcat(makosa, ": ");
+	_strcat(makosa, count);
+	_strcat(makosa, siri2);
+	_strcat(makosa, siri1);
+	_strcat(makosa, siri3);
+	_strcat(makosa, "\0");
 
-	write(STDERR_FILENO, error, length);
-	free(error);
-	free(counter);
+	write(STDERR_FILENO, makosa, l);
+	free(makosa);
+	free(count);
 }
 
 /**
- * check_syntax_error - intermediate function to
- * find and print a syntax error
- *
- * @datash: data structure
- * @input: input string
- * Return: 1 if there is an error. 0 in other case
+ * check_s_error - the  check functions
+ * @info3: info struc of structure
+ * @inp: insertion of string
+ * Return: always answer
  */
-int check_syntax_error(data_shell *datash, char *input)
+int check_s_error(info2 *info3, char *inp)
 {
-	int begin = 0;
-	int f_char = 0;
-	int i = 0;
+	int stats = 0;
+	int pp = 0;
+	int x = 0;
 
-	f_char = first_char(input, &begin);
-	if (f_char == -1)
+	pp = start_char(inp, &stats);
+	if (pp == -1)
 	{
-		print_syntax_error(datash, input, begin, 0);
+		print_synt_err(info3, inp, stats, 0);
 		return (1);
 	}
 
-	i = error_sep_op(input + begin, 0, *(input + begin));
-	if (i != 0)
+	x = error_sep(inp + stats, 0, *(inp + stats));
+	if (x != 0)
 	{
-		print_syntax_error(datash, input, begin + i, 1);
+		print_synt_err(info3, inp, stats + x, 1);
 		return (1);
 	}
 

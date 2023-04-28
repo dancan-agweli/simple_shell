@@ -1,111 +1,109 @@
 #include "shel.h"
 
 /**
- * add_sep_node_end - adds a separator found at the end
- * of a sep_list.
- * @head: head of the linked list.
- * @sep: separator found (; | &).
- * Return: address of the head.
+ * add_sep_node_end - adds a separators
+ * @headd: the linked list.
+ * @sep: separators(; | &).
+ * Return: always answer..
  */
-sep_list *add_sep_node_end(sep_list **head, char sep)
+sep_list *add_sep_node_end(sep_list **headd, char sep)
 {
-	sep_list *new, *temp;
+	sep_list *fresh, *swapp;
 
-	new = malloc(sizeof(sep_list));
-	if (new == NULL)
+	fresh = malloc(sizeof(sep_list));
+	if (fresh == NULL)
 		return (NULL);
 
-	new->separator = sep;
-	new->next = NULL;
-	temp = *head;
+	fresh->sep = sep;
+	fresh->next = NULL;
+	swapp = *headd;
 
-	if (temp == NULL)
+	if (swapp == NULL)
 	{
-		*head = new;
+		*headd = fresh;
 	}
 	else
 	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		while (swapp->next != NULL)
+			swapp = swapp->next;
+		swapp->next = fresh;
 	}
 
-	return (*head);
+	return (*headd);
 }
 
 /**
- * free_sep_list - frees a sep_list
- * @head: head of the linked list.
- * Return: no return.
+ * free_sep_list - realieses a sep_list
+ * @headd: ...
+ * Return: nothing
  */
-void free_sep_list(sep_list **head)
+void free_sep_list(sep_list **headd)
 {
-	sep_list *temp;
-	sep_list *curr;
+	sep_list *swapp;
+	sep_list *rc;
 
-	if (head != NULL)
+	if (headd != NULL)
 	{
-		curr = *head;
-		while ((temp = curr) != NULL)
+		rc = *headd;
+		while ((swapp = rc) != NULL)
 		{
-			curr = curr->next;
-			free(temp);
+			rc = rc->next;
+			free(swapp);
 		}
-		*head = NULL;
+		*headd = NULL;
 	}
 }
 
 /**
- * add_line_node_end - adds a command line at the end
- * of a line_list.
- * @head: head of the linked list.
- * @line: command line.
+ * add_line_node_end - prints the command line at the end
+ * @headd: the linked list.
+ * @line: cmd line.
  * Return: address of the head.
  */
-line_list *add_line_node_end(line_list **head, char *line)
+line_list *add_line_node_end(line_list **headd, char *line)
 {
-	line_list *new, *temp;
+	line_list *fresh, *swapp;
 
-	new = malloc(sizeof(line_list));
-	if (new == NULL)
+	fresh = malloc(sizeof(line_list));
+	if (fresh == NULL)
 		return (NULL);
 
-	new->line = line;
-	new->next = NULL;
-	temp = *head;
+	fresh->line = line;
+	fresh->next = NULL;
+	swapp = *headd;
 
-	if (temp == NULL)
+	if (swapp == NULL)
 	{
-		*head = new;
+		*headd = fresh;
 	}
 	else
 	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		while (swapp->next != NULL)
+			swapp = swapp->next;
+		swapp->next = fresh;
 	}
 
-	return (*head);
+	return (*headd);
 }
 
 /**
- * free_line_list - frees a line_list
- * @head: head of the linked list.
+ * free_line_list - realises line_list
+ * @headd: ...
  * Return: no return.
  */
-void free_line_list(line_list **head)
+void free_line_list(line_list **headd)
 {
-	line_list *temp;
-	line_list *curr;
+	line_list *swapp;
+	line_list *rc;
 
-	if (head != NULL)
+	if (headd != NULL)
 	{
-		curr = *head;
-		while ((temp = curr) != NULL)
+		rc = *headd;
+		while ((swapp = rc) != NULL)
 		{
-			curr = curr->next;
-			free(temp);
+			rc = rc->next;
+			free(swapp);
 		}
-		*head = NULL;
+		*headd = NULL;
 	}
 }
